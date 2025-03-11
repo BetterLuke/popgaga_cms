@@ -24,7 +24,7 @@ export const Product: CollectionConfig = {
       label: '产品标题',
     },
     {
-      name: 'source_url',
+      name: 'sourceUrl',
       type: 'text',
       label: '来源网址',
       required: true,
@@ -43,7 +43,7 @@ export const Product: CollectionConfig = {
               hasMany: true,
             },
             {
-              name: 'product_details',
+              name: 'productDetail',
               label: '产品参数JSON数据',
               type: 'json',
             },
@@ -70,7 +70,7 @@ export const Product: CollectionConfig = {
               type: 'array',
               fields: [
                 {
-                  name: 'colorData',
+                  name: 'colorOption',
                   label: '颜色项',
                   type: 'group',
                   fields: [
@@ -104,7 +104,7 @@ export const Product: CollectionConfig = {
           label: '媒体',
           fields: [
             {
-              name: 'main_media',
+              name: 'mainMedias',
               label: '主图媒体',
               type: 'upload',
               relationTo: 'media',
@@ -112,7 +112,7 @@ export const Product: CollectionConfig = {
               hasMany: true,
             },
             {
-              name: 'show_case',
+              name: 'showCaseMedias',
               label: '买家秀',
               type: 'upload',
               relationTo: 'media',
@@ -126,7 +126,7 @@ export const Product: CollectionConfig = {
           label: '尺寸信息',
           fields: [
             {
-              name: 'sizeData',
+              name: 'sizeChartJson',
               label: '尺寸表JSON数据',
               type: 'json',
               required: true,

@@ -167,10 +167,10 @@ export interface Media {
 export interface Product {
   id: string;
   title: string;
-  source_url: string;
+  sourceUrl: string;
   detail?: {
     tags?: string[] | null;
-    product_details?:
+    productDetail?:
       | {
           [k: string]: unknown;
         }
@@ -184,7 +184,7 @@ export interface Product {
     sizes?: string[] | null;
     colors?:
       | {
-          colorData: {
+          colorOption: {
             name: string;
             image: string | Media;
             is_need_transparent?: boolean | null;
@@ -194,14 +194,14 @@ export interface Product {
       | null;
   };
   medias: {
-    main_media: (string | Media)[];
-    show_case: (string | Media)[];
+    mainMedias: (string | Media)[];
+    showCaseMedias: (string | Media)[];
   };
   sizeInfo: {
     /**
      * Enter size chart data in JSON format: { columns: [], data: [] }
      */
-    sizeData:
+    sizeChartJson:
       | {
           [k: string]: unknown;
         }
@@ -339,12 +339,12 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface ProductsSelect<T extends boolean = true> {
   title?: T;
-  source_url?: T;
+  sourceUrl?: T;
   detail?:
     | T
     | {
         tags?: T;
-        product_details?: T;
+        productDetail?: T;
       };
   options?:
     | T
@@ -353,7 +353,7 @@ export interface ProductsSelect<T extends boolean = true> {
         colors?:
           | T
           | {
-              colorData?:
+              colorOption?:
                 | T
                 | {
                     name?: T;
@@ -366,13 +366,13 @@ export interface ProductsSelect<T extends boolean = true> {
   medias?:
     | T
     | {
-        main_media?: T;
-        show_case?: T;
+        mainMedias?: T;
+        showCaseMedias?: T;
       };
   sizeInfo?:
     | T
     | {
-        sizeData?: T;
+        sizeChartJson?: T;
       };
   meta?:
     | T
