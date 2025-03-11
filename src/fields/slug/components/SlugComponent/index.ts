@@ -1,0 +1,1 @@
+export { SlugComponent } from './SlugComponent'
