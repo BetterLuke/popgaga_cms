@@ -167,6 +167,7 @@ export interface Media {
 export interface Product {
   id: string;
   title: string;
+  price: number;
   sourceUrl: string;
   detail?: {
     tags?: string[] | null;
@@ -339,6 +340,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface ProductsSelect<T extends boolean = true> {
   title?: T;
+  price?: T;
   sourceUrl?: T;
   detail?:
     | T

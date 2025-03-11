@@ -27,10 +27,27 @@ export const Product: CollectionConfig = {
       label: '产品标题',
     },
     {
-      name: 'sourceUrl',
-      type: 'text',
-      label: '来源网址',
-      required: true,
+      type: 'row',
+      fields: [
+        {
+          name: 'price',
+          type: 'number',
+          label: '价格',
+          required: true,
+          admin: {
+            width: '20%',
+          },
+        },
+        {
+          name: 'sourceUrl',
+          type: 'text',
+          label: '来源网址',
+          required: true,
+          admin: {
+            width: '80%',
+          },
+        },
+      ],
     },
     {
       type: 'tabs',
