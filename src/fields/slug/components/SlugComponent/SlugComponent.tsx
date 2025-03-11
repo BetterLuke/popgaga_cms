@@ -22,6 +22,7 @@ export function SlugComponent(props: SlugComponentProps) {
 
   const { value, setValue } = useField<string>({ path: path || field.name })
   const { dispatchFields } = useForm()
+  console.log('path', path)
 
   const { label } = field
 

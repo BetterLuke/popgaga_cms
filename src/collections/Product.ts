@@ -15,6 +15,9 @@ export const Product: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
   },
+  defaultPopulate: {
+    // medias: true,
+  },
   fields: [
     {
       name: 'title',
@@ -116,10 +119,16 @@ export const Product: CollectionConfig = {
               label: '买家秀',
               type: 'upload',
               relationTo: 'media',
-              required: true,
               hasMany: true,
             },
           ],
+          admin: {
+            components: {
+              Cell: {
+                path: '@/cells/media_thumbnail_cell/MediaThumbnailCell',
+              },
+            },
+          },
         },
         {
           name: 'sizeInfo',

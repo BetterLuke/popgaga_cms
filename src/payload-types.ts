@@ -195,7 +195,7 @@ export interface Product {
   };
   medias: {
     mainMedias: (string | Media)[];
-    showCaseMedias: (string | Media)[];
+    showCaseMedias?: (string | Media)[] | null;
   };
   sizeInfo: {
     /**
