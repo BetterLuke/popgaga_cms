@@ -3,7 +3,7 @@
 import { Button, FieldLabel, TextInput, useField, useForm, useFormFields } from '@payloadcms/ui'
 import { TextFieldClientProps } from 'payload'
 import { useCallback, useEffect } from 'react'
-import { formatSlug } from '../../formatSlugFieldHook'
+import { formatSlug } from '../formatSlugFieldHook'
 import './index.scss'
 
 type SlugComponentProps = {
@@ -11,7 +11,7 @@ type SlugComponentProps = {
   checkboxFieldPath: string
 } & TextFieldClientProps
 
-export function SlugComponent(props: SlugComponentProps) {
+export default function SlugComponent(props: SlugComponentProps) {
   const {
     field,
     fieldToUse,

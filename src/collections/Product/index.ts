@@ -8,7 +8,7 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 
-import { slugField } from '@/fields/slug'
+import { slugField } from '@/collections/Product/fields/slug'
 
 export const Product: CollectionConfig = {
   slug: 'products',
@@ -125,7 +125,7 @@ export const Product: CollectionConfig = {
           admin: {
             components: {
               Cell: {
-                path: '@/cells/media_thumbnail_cell/MediaThumbnailCell',
+                path: '@/collections/Product/cells/MediaThumbnailCell',
               },
             },
           },
