@@ -169,9 +169,9 @@ export interface Product {
   title: string;
   price: number;
   sourceUrl: string;
-  detail?: {
+  detail: {
     tags?: string[] | null;
-    productDetail?:
+    productDetail:
       | {
           [k: string]: unknown;
         }

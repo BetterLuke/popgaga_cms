@@ -1,4 +1,4 @@
-import { renameFields } from '@/utils/rename-field'
+import { renameFields } from '@/utilities/rename-field'
 import { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-mongodb'
 
 export async function up({ payload }: MigrateUpArgs): Promise<void> {

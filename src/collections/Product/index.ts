@@ -9,14 +9,20 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 
 import { slugField } from '@/collections/Product/fields/slug'
+import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 
 export const Product: CollectionConfig = {
   slug: 'products',
   admin: {
     useAsTitle: 'title',
-  },
-  defaultPopulate: {
-    // medias: true,
+    livePreview: {
+      url: ({ data, req }) =>
+        generatePreviewPath({
+          slug: typeof data?.slug === 'string' ? data.slug : '',
+          collection: 'products',
+          req,
+        }),
+    },
   },
   fields: [
     {
@@ -66,6 +72,7 @@ export const Product: CollectionConfig = {
               name: 'productDetail',
               label: '产品参数JSON数据',
               type: 'json',
+              required: true,
             },
           ],
         },
