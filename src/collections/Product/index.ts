@@ -85,7 +85,7 @@ export const Product: CollectionConfig = {
               ],
             },
             {
-              name: 'color',
+              name: 'colors',
               label: '产品颜色',
               type: 'array',
               labels: {
@@ -117,7 +117,7 @@ export const Product: CollectionConfig = {
           ],
         },
         {
-          name: 'medias',
+          name: 'media',
           label: '媒体',
           fields: [
             {

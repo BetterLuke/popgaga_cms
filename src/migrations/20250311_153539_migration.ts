@@ -25,12 +25,15 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
     payload.logger.info(`Found ${products.length} products to migrate`)
 
     for (const product of products) {
+      // @ts-ignore
       if (product.options) {
         try {
           // 转换旧的 options 结构到新的 option 结构
           const newOption = {
+            // @ts-ignore
             sizes: product.options.sizes,
             color:
+              // @ts-ignore
               product.options.colors?.map((colorItem: any) => ({
                 name: colorItem.colorOption.name,
                 image: colorItem.colorOption.image.toString(),

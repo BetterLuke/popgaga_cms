@@ -183,7 +183,7 @@ export interface Product {
   };
   option?: {
     sizes?: string[] | null;
-    color?:
+    colors?:
       | {
           name: string;
           image: string | Media;
@@ -192,7 +192,7 @@ export interface Product {
         }[]
       | null;
   };
-  medias: {
+  media: {
     mainMedias: (string | Media)[];
     showCaseMedias?: (string | Media)[] | null;
   };
@@ -350,7 +350,7 @@ export interface ProductsSelect<T extends boolean = true> {
     | T
     | {
         sizes?: T;
-        color?:
+        colors?:
           | T
           | {
               name?: T;
@@ -359,7 +359,7 @@ export interface ProductsSelect<T extends boolean = true> {
               id?: T;
             };
       };
-  medias?:
+  media?:
     | T
     | {
         mainMedias?: T;
