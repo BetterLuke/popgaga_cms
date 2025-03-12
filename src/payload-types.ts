@@ -181,15 +181,13 @@ export interface Product {
       | boolean
       | null;
   };
-  options?: {
+  option?: {
     sizes?: string[] | null;
-    colors?:
+    color?:
       | {
-          colorOption: {
-            name: string;
-            image: string | Media;
-            is_need_transparent?: boolean | null;
-          };
+          name: string;
+          image: string | Media;
+          is_need_transparent?: boolean | null;
           id?: string | null;
         }[]
       | null;
@@ -348,20 +346,16 @@ export interface ProductsSelect<T extends boolean = true> {
         tags?: T;
         productDetail?: T;
       };
-  options?:
+  option?:
     | T
     | {
         sizes?: T;
-        colors?:
+        color?:
           | T
           | {
-              colorOption?:
-                | T
-                | {
-                    name?: T;
-                    image?: T;
-                    is_need_transparent?: T;
-                  };
+              name?: T;
+              image?: T;
+              is_need_transparent?: T;
               id?: T;
             };
       };

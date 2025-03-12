@@ -70,7 +70,7 @@ export const Product: CollectionConfig = {
           ],
         },
         {
-          name: 'options',
+          name: 'option',
           label: '变体',
           fields: [
             {
@@ -85,35 +85,32 @@ export const Product: CollectionConfig = {
               ],
             },
             {
-              name: 'colors',
+              name: 'color',
               label: '产品颜色',
               type: 'array',
+              labels: {
+                singular: 'Color',
+                plural: 'Colors',
+              },
               fields: [
                 {
-                  name: 'colorOption',
-                  label: '颜色项',
-                  type: 'group',
-                  fields: [
-                    {
-                      name: 'name',
-                      label: '颜色名称',
-                      type: 'text',
-                      required: true,
-                    },
-                    {
-                      name: 'image',
-                      label: '颜色图片',
-                      type: 'upload',
-                      relationTo: 'media', // 关联到 media 集合
-                      required: true,
-                    },
-                    {
-                      name: 'is_need_transparent',
-                      label: '生成透明底图',
-                      type: 'checkbox',
-                      defaultValue: false,
-                    },
-                  ],
+                  name: 'name',
+                  label: '颜色名称',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'image',
+                  label: '颜色图片',
+                  type: 'upload',
+                  relationTo: 'media', // 关联到 media 集合
+                  required: true,
+                },
+                {
+                  name: 'is_need_transparent',
+                  label: '生成透明底图',
+                  type: 'checkbox',
+                  defaultValue: false,
                 },
               ],
             },
