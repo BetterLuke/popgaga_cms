@@ -11,6 +11,8 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Product } from './collections/Product'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { Suppliers } from './collections/Supply'
+import { Selections } from './collections/Selection'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -22,7 +24,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Product],
+  collections: [Users, Media, Product, Suppliers, Selections],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
