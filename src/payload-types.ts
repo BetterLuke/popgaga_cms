@@ -69,6 +69,8 @@ export interface Config {
     users: User;
     media: Media;
     products: Product;
+    suppliers: Supplier;
+    selections: Selection;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -78,6 +80,8 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
+    suppliers: SuppliersSelect<false> | SuppliersSelect<true>;
+    selections: SelectionsSelect<false> | SelectionsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -226,6 +230,53 @@ export interface Product {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "suppliers".
+ */
+export interface Supplier {
+  id: string;
+  brandName: string;
+  logo?: (string | null) | Media;
+  渠道?:
+    | {
+        type: 'TAO_BAO' | 'XIAO_HONG_SHU' | 'INDEPENDENT_STATION';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "selections".
+ */
+export interface Selection {
+  id: string;
+  title: string;
+  sourceUrl: string;
+  sizeChartScreenShotImage: string | Media;
+  productDetailScreenShotImage: string | Media;
+  media: {
+    mainMedias: (string | Media)[];
+    showCaseMedias?: (string | Media)[] | null;
+  };
+  option?: {
+    sizes?: string[] | null;
+    colors?:
+      | {
+          name: string;
+          image: string | Media;
+          is_need_transparent?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -242,6 +293,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'products';
         value: string | Product;
+      } | null)
+    | ({
+        relationTo: 'suppliers';
+        value: string | Supplier;
+      } | null)
+    | ({
+        relationTo: 'selections';
+        value: string | Selection;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -380,6 +439,55 @@ export interface ProductsSelect<T extends boolean = true> {
   publishedAt?: T;
   slug?: T;
   slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "suppliers_select".
+ */
+export interface SuppliersSelect<T extends boolean = true> {
+  brandName?: T;
+  logo?: T;
+  渠道?:
+    | T
+    | {
+        type?: T;
+        url?: T;
+        id?: T;
+      };
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "selections_select".
+ */
+export interface SelectionsSelect<T extends boolean = true> {
+  title?: T;
+  sourceUrl?: T;
+  sizeChartScreenShotImage?: T;
+  productDetailScreenShotImage?: T;
+  media?:
+    | T
+    | {
+        mainMedias?: T;
+        showCaseMedias?: T;
+      };
+  option?:
+    | T
+    | {
+        sizes?: T;
+        colors?:
+          | T
+          | {
+              name?: T;
+              image?: T;
+              is_need_transparent?: T;
+              id?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
 }
