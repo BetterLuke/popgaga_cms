@@ -9,13 +9,12 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
-      required: true,
     },
   ],
   upload: {
     adminThumbnail: 'thumbnail',
     focalPoint: true,
-    imageSizes:[
+    imageSizes: [
       {
         name: 'thumbnail',
         width: 300,
@@ -47,6 +46,6 @@ export const Media: CollectionConfig = {
       //   height: 630,
       //   crop: 'center',
       // },
-    ]
+    ],
   },
 }
