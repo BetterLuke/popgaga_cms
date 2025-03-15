@@ -23,6 +23,21 @@ export const Selections: CollectionConfig = {
       },
     },
     {
+      name: 'price',
+      type: 'number',
+      label: '价格',
+      required: true,
+      admin: {
+        width: '20%',
+      },
+    },
+    {
+      name: 'supplier',
+      type: 'relationship',
+      label: '品牌',
+      relationTo: 'suppliers',
+    },
+    {
       name: 'sizeChartScreenShotImage',
       type: 'upload',
       label: '尺寸表截图',

@@ -235,8 +235,9 @@ export interface Product {
 export interface Supplier {
   id: string;
   brandName: string;
+  categories?: string[] | null;
   logo?: (string | null) | Media;
-  渠道?:
+  channel?:
     | {
         type: 'TAO_BAO' | 'XIAO_HONG_SHU' | 'INDEPENDENT_STATION';
         url: string;
@@ -255,6 +256,8 @@ export interface Selection {
   id: string;
   title: string;
   sourceUrl: string;
+  price: number;
+  supplier?: (string | null) | Supplier;
   sizeChartScreenShotImage: string | Media;
   productDetailScreenShotImage: string | Media;
   media: {
@@ -448,8 +451,9 @@ export interface ProductsSelect<T extends boolean = true> {
  */
 export interface SuppliersSelect<T extends boolean = true> {
   brandName?: T;
+  categories?: T;
   logo?: T;
-  渠道?:
+  channel?:
     | T
     | {
         type?: T;
@@ -467,6 +471,8 @@ export interface SuppliersSelect<T extends boolean = true> {
 export interface SelectionsSelect<T extends boolean = true> {
   title?: T;
   sourceUrl?: T;
+  price?: T;
+  supplier?: T;
   sizeChartScreenShotImage?: T;
   productDetailScreenShotImage?: T;
   media?:

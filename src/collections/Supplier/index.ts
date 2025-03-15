@@ -14,13 +14,27 @@ export const Suppliers: CollectionConfig = {
       label: '品牌名称',
     },
     {
+      name: 'categories',
+      label: '主营品类',
+      type: 'text',
+      hasMany: true,
+    },
+    {
       name: 'logo',
       type: 'upload',
       relationTo: 'media',
       label: 'Logo',
+      admin: {
+        components: {
+          Cell: {
+            path: '@/collections/Supplier/cells/MediaThumbnailCell',
+          },
+        },
+      },
     },
     {
-      name: '渠道',
+      name: 'channel',
+      label: '渠道',
       type: 'array',
       fields: [
         {

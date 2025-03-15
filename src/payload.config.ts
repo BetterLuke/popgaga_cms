@@ -11,7 +11,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Product } from './collections/Product'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import { Suppliers } from './collections/Supply'
+import { Suppliers } from './collections/Supplier'
 import { Selections } from './collections/Selection'
 
 const filename = fileURLToPath(import.meta.url)
