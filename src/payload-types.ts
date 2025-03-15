@@ -255,6 +255,7 @@ export interface Supplier {
 export interface Selection {
   id: string;
   title: string;
+  status?: ('pending' | 'processing' | 'reviewing' | 'confirmed' | 'completed' | 'discarded') | null;
   sourceUrl: string;
   price: number;
   supplier?: (string | null) | Supplier;
@@ -470,6 +471,7 @@ export interface SuppliersSelect<T extends boolean = true> {
  */
 export interface SelectionsSelect<T extends boolean = true> {
   title?: T;
+  status?: T;
   sourceUrl?: T;
   price?: T;
   supplier?: T;

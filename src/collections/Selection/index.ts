@@ -14,6 +14,23 @@ export const Selections: CollectionConfig = {
       label: '产品标题',
     },
     {
+      name: 'status',
+      label: '状态',
+      type: 'select',
+      options: [
+        { label: '待处理', value: 'pending' }, // 初始状态，刚录入选品
+        { label: '处理中', value: 'processing' }, // 正在调用Dify处理
+        { label: '待评审', value: 'reviewing' }, // Dify处理完成，等待您检查
+        { label: '已确认', value: 'confirmed' }, // 评审通过，准备创建Products
+        { label: '已完成', value: 'completed' }, // 已生成Products，流程结束
+        { label: '已废弃', value: 'discarded' }, // 选品被放弃
+      ],
+      defaultValue: 'pending',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'sourceUrl',
       type: 'text',
       label: '来源网址',

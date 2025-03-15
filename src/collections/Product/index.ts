@@ -201,6 +201,18 @@ export const Product: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    {
+      name: 'status',
+      type: 'select',
+      label: '状态',
+      options: [
+        { label: '草稿', value: 'draft' }, // 新创建，未完善
+        { label: '已发布', value: 'published' }, // 数据完善，可用于后续操作
+        { label: '已归档', value: 'archived' }, // 不再使用，但保留记录
+      ],
+      defaultValue: 'draft',
+      required: true,
+    },
     ...slugField(),
   ],
 }
