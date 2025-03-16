@@ -223,6 +223,7 @@ export interface Product {
     image?: (string | null) | Media;
   };
   publishedAt?: string | null;
+  status: 'draft' | 'published' | 'archived';
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -441,6 +442,7 @@ export interface ProductsSelect<T extends boolean = true> {
         image?: T;
       };
   publishedAt?: T;
+  status?: T;
   slug?: T;
   slugLock?: T;
   updatedAt?: T;
