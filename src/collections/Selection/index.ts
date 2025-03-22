@@ -1,17 +1,96 @@
-import { CollectionConfig } from 'payload'
+import { CollectionAfterReadHook, CollectionConfig, FieldHook } from 'payload'
+import handleSelectionWorkflow from './hooks/handleSelectionWorkflow'
+import { Selection } from '@/payload-types'
+
+const getFeatureImage: FieldHook<Selection> = ({ data }) => {
+  if (data && data.media && data.media.mainMedias && data.media.mainMedias.length > 0) {
+    return data.media.mainMedias[0]
+  }
+}
+const ensureNotStoreFeatureImage: FieldHook<Selection> = ({ siblingData }) => {
+  delete siblingData.featureImage
+}
 
 export const Selections: CollectionConfig = {
   slug: 'selections',
   admin: {
     useAsTitle: 'title',
   },
+  access: {
+    read: () => true,
+    update: () => true,
+  },
+  hooks: {
+    afterChange: [handleSelectionWorkflow],
+    // afterRead: [
+    //   ({ doc }) => {
+    //     // Set mainImage to the first media in mainMedias if it exists
+    //     if (doc.media?.mainMedias?.length > 0) {
+    //       doc.featureImage = doc.media.mainMedias[0]
+    //     }
+    //     return doc
+    //   },
+    // ],
+  },
   fields: [
+    // {
+    //   type: 'tabs',
+    //   tabs: [
+    //     {
+    //       name: 'raw_data',
+    //       label: '选品信息',
+    //       fields: [
+    //         {
+    //           name: 'brand_info',
+    //           label: '品牌信息',
+    //           type: 'relationship',
+    //           relationTo: 'suppliers',
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       name: 'ai_generated',
+    //       label: 'AI 生成结果',
+    //       fields: [
+    //         {
+    //           name: 'titleList',
+    //           type: 'array',
+    //           fields: [
+    //             {
+    //               name: 'title',
+    //               label: '标题',
+    //               type: 'text',
+    //             },
+    //             {},
+    //           ],
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
     {
       name: 'title',
       type: 'text',
       required: true,
       unique: true,
       label: '产品标题',
+    },
+    {
+      name: 'featureImage',
+      label: '主图预览',
+      type: 'upload',
+      relationTo: 'media',
+      virtual: true,
+      admin: {
+        // hidden: true,
+        readOnly: true,
+        description: '自动显示主图媒体的第一张图片',
+        position: 'sidebar',
+      },
+      hooks: {
+        afterRead: [getFeatureImage],
+        beforeChange: [ensureNotStoreFeatureImage],
+      },
     },
     {
       name: 'status',
@@ -140,6 +219,125 @@ export const Selections: CollectionConfig = {
               label: '生成透明底图',
               type: 'checkbox',
               defaultValue: false,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'collapsible',
+      label: '翻译标题列表',
+      fields: [
+        {
+          name: 'translatedTitleList',
+          type: 'array',
+          label: '翻译标题列表',
+          fields: [
+            {
+              name: 'title',
+              label: '标题',
+              type: 'text',
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'template',
+                  label: '模板',
+                  type: 'text',
+                },
+                {
+                  name: 'style',
+                  label: '风格',
+                  type: 'text',
+                },
+              ],
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'keywords',
+                  label: '关键词',
+                  type: 'text',
+                  hasMany: true,
+                  admin: {
+                    width: '50%',
+                  },
+                },
+                {
+                  name: 'explanation',
+                  label: '解释',
+                  type: 'textarea',
+                  admin: {
+                    width: '50%',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'sizeChartJson',
+      type: 'json',
+      label: '尺码表',
+      admin: {
+        readOnly: true,
+      },
+    },
+    {
+      type: 'collapsible',
+      label: 'Meta Description',
+      admin: {
+        initCollapsed: true,
+      },
+      fields: [
+        {
+          name: 'metaDescriptionList',
+          type: 'array',
+          label: 'Meta Description',
+          fields: [
+            {
+              name: 'meta_description',
+              label: 'Meta Description',
+              type: 'textarea',
+              admin: {
+                readOnly: true,
+              },
+            },
+            {
+              type: 'row',
+              admin: {
+                readOnly: true,
+              },
+              fields: [
+                {
+                  name: 'style',
+                  label: '风格',
+                  type: 'text',
+                  admin: {
+                    width: '33%',
+                  },
+                },
+                {
+                  name: 'focus',
+                  label: '焦点',
+                  type: 'text',
+                  admin: {
+                    width: '33%',
+                  },
+                },
+                {
+                  name: 'characters',
+                  label: '字符数',
+                  type: 'number',
+                  admin: {
+                    width: '33%',
+                  },
+                },
+              ],
             },
           ],
         },

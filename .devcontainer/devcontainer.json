@@ -24,7 +24,8 @@
       "extensions": [
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "saoudrizwan.claude-dev"
       ]
     }
   },
@@ -33,7 +34,7 @@
       "label": "Application",
       "onAutoForward": "notify"
     }
-  },
+  }
   // Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
-  "remoteUser": "node"
+  // "remoteUser": "node"
 }

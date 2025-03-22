@@ -70,7 +70,6 @@ export interface Config {
     media: Media;
     products: Product;
     suppliers: Supplier;
-    styles: Style;
     selections: Selection;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -82,7 +81,6 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     suppliers: SuppliersSelect<false> | SuppliersSelect<true>;
-    styles: StylesSelect<false> | StylesSelect<true>;
     selections: SelectionsSelect<false> | SelectionsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -253,28 +251,11 @@ export interface Supplier {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "styles".
- */
-export interface Style {
-  id: string;
-  title: string;
-  raw_data?: {};
-  ai_generated?: {};
-  style_info?: (string | null) | Selection;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "selections".
  */
 export interface Selection {
   id: string;
   title: string;
-  /**
-   * 自动显示主图媒体的第一张图片
-   */
-  featureImage?: (string | null) | Media;
   status?: ('pending' | 'processing' | 'reviewing' | 'confirmed' | 'completed' | 'discarded') | null;
   sourceUrl: string;
   price: number;
@@ -296,34 +277,6 @@ export interface Selection {
         }[]
       | null;
   };
-  translatedTitleList?:
-    | {
-        title?: string | null;
-        template?: string | null;
-        style?: string | null;
-        keywords?: string[] | null;
-        explanation?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  sizeChartJson?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  metaDescriptionList?:
-    | {
-        meta_description?: string | null;
-        style?: string | null;
-        focus?: string | null;
-        characters?: number | null;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -349,10 +302,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'suppliers';
         value: string | Supplier;
-      } | null)
-    | ({
-        relationTo: 'styles';
-        value: string | Style;
       } | null)
     | ({
         relationTo: 'selections';
@@ -520,23 +469,10 @@ export interface SuppliersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "styles_select".
- */
-export interface StylesSelect<T extends boolean = true> {
-  title?: T;
-  raw_data?: T | {};
-  ai_generated?: T | {};
-  style_info?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "selections_select".
  */
 export interface SelectionsSelect<T extends boolean = true> {
   title?: T;
-  featureImage?: T;
   status?: T;
   sourceUrl?: T;
   price?: T;
@@ -561,26 +497,6 @@ export interface SelectionsSelect<T extends boolean = true> {
               is_need_transparent?: T;
               id?: T;
             };
-      };
-  translatedTitleList?:
-    | T
-    | {
-        title?: T;
-        template?: T;
-        style?: T;
-        keywords?: T;
-        explanation?: T;
-        id?: T;
-      };
-  sizeChartJson?: T;
-  metaDescriptionList?:
-    | T
-    | {
-        meta_description?: T;
-        style?: T;
-        focus?: T;
-        characters?: T;
-        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;

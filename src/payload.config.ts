@@ -13,11 +13,14 @@ import { Product } from './collections/Product'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { Suppliers } from './collections/Supplier'
 import { Selections } from './collections/Selection'
+import { Styles } from './collections/Style'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  serverURL: process.env.SERVER_URL,
+  cors: '*',
   admin: {
     user: Users.slug,
     importMap: {
@@ -46,7 +49,7 @@ export default buildConfig({
       ],
     },
   },
-  collections: [Users, Media, Product, Suppliers, Selections],
+  collections: [Users, Media, Product, Suppliers, Styles, Selections],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
