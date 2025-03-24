@@ -54,6 +54,7 @@ export type SupportedTimezones =
   | 'Asia/Singapore'
   | 'Asia/Tokyo'
   | 'Asia/Seoul'
+  | 'Australia/Brisbane'
   | 'Australia/Sydney'
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
@@ -72,6 +73,7 @@ export interface Config {
     suppliers: Supplier;
     styles: Style;
     selections: Selection;
+    'generated-media-tasks': GeneratedMediaTask;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -84,6 +86,7 @@ export interface Config {
     suppliers: SuppliersSelect<false> | SuppliersSelect<true>;
     styles: StylesSelect<false> | StylesSelect<true>;
     selections: SelectionsSelect<false> | SelectionsSelect<true>;
+    'generated-media-tasks': GeneratedMediaTasksSelect<false> | GeneratedMediaTasksSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -144,6 +147,17 @@ export interface User {
 export interface Media {
   id: string;
   alt?: string | null;
+  /**
+   * 通过“生成式”技术，根据原始图片和不同的“配方”，创造出的一系列“衍生”自原始图片的不同“变体”。
+   */
+  generativeDerivedVariants?:
+    | {
+        recipe?: 'TRANSPARENTED' | null;
+        status?: ('pending' | 'processing' | 'completed') | null;
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -258,9 +272,6 @@ export interface Supplier {
 export interface Style {
   id: string;
   title: string;
-  raw_data?: {};
-  ai_generated?: {};
-  style_info?: (string | null) | Selection;
   updatedAt: string;
   createdAt: string;
 }
@@ -270,13 +281,8 @@ export interface Style {
  */
 export interface Selection {
   id: string;
-  title: string;
-  /**
-   * 自动显示主图媒体的第一张图片
-   */
-  featureImage?: (string | null) | Media;
-  status?: ('pending' | 'processing' | 'reviewing' | 'confirmed' | 'completed' | 'discarded') | null;
   sourceUrl: string;
+  title: string;
   price: number;
   supplier?: (string | null) | Supplier;
   sizeChartScreenShotImage: string | Media;
@@ -306,15 +312,6 @@ export interface Selection {
         id?: string | null;
       }[]
     | null;
-  sizeChartJson?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   metaDescriptionList?:
     | {
         meta_description?: string | null;
@@ -324,8 +321,34 @@ export interface Selection {
         id?: string | null;
       }[]
     | null;
+  sizeChartJson?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * 自动显示主图媒体的第一张图片
+   */
+  featureImage?: (string | null) | Media;
+  status?: ('pending' | 'processing' | 'reviewing' | 'confirmed' | 'completed' | 'discarded') | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "generated-media-tasks".
+ */
+export interface GeneratedMediaTask {
+  id: string;
+  recipe?: 'TRANSPARENTED' | null;
+  status?: ('pending' | 'processing' | 'completed') | null;
+  createdAt: string;
+  artifact?: (string | null) | Media;
+  updatedAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -357,6 +380,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'selections';
         value: string | Selection;
+      } | null)
+    | ({
+        relationTo: 'generated-media-tasks';
+        value: string | GeneratedMediaTask;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -421,6 +448,14 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  generativeDerivedVariants?:
+    | T
+    | {
+        recipe?: T;
+        status?: T;
+        image?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -524,9 +559,6 @@ export interface SuppliersSelect<T extends boolean = true> {
  */
 export interface StylesSelect<T extends boolean = true> {
   title?: T;
-  raw_data?: T | {};
-  ai_generated?: T | {};
-  style_info?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -535,10 +567,8 @@ export interface StylesSelect<T extends boolean = true> {
  * via the `definition` "selections_select".
  */
 export interface SelectionsSelect<T extends boolean = true> {
-  title?: T;
-  featureImage?: T;
-  status?: T;
   sourceUrl?: T;
+  title?: T;
   price?: T;
   supplier?: T;
   sizeChartScreenShotImage?: T;
@@ -572,7 +602,6 @@ export interface SelectionsSelect<T extends boolean = true> {
         explanation?: T;
         id?: T;
       };
-  sizeChartJson?: T;
   metaDescriptionList?:
     | T
     | {
@@ -582,8 +611,22 @@ export interface SelectionsSelect<T extends boolean = true> {
         characters?: T;
         id?: T;
       };
+  sizeChartJson?: T;
+  featureImage?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "generated-media-tasks_select".
+ */
+export interface GeneratedMediaTasksSelect<T extends boolean = true> {
+  recipe?: T;
+  status?: T;
+  createdAt?: T;
+  artifact?: T;
+  updatedAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

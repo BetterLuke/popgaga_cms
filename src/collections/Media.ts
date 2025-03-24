@@ -10,6 +10,61 @@ export const Media: CollectionConfig = {
       name: 'alt',
       type: 'text',
     },
+    {
+      name: 'generativeDerivedVariants',
+      type: 'array',
+      label: '生成式衍生变体',
+      admin: {
+        position: 'sidebar',
+        description:
+          '通过“生成式”技术，根据原始图片和不同的“配方”，创造出的一系列“衍生”自原始图片的不同“变体”。',
+      },
+      fields: [
+        {
+          label: '生成配方',
+          name: 'recipe',
+          type: 'select',
+          options: [
+            {
+              label: '透明底图',
+              value: 'TRANSPARENTED',
+            },
+          ],
+        },
+        {
+          name: 'status',
+          label: '状态',
+          type: 'select',
+          admin: {
+            readOnly: true,
+            condition: (_, siblingData) => siblingData.status,
+          },
+          options: [
+            { label: '待处理', value: 'pending' },
+            { label: '处理中', value: 'processing' },
+            { label: '已完成', value: 'completed' },
+          ],
+        },
+        // {
+        //   name: 'createdAt',
+        //   type: 'date',
+        //   admin: {
+        //     readOnly: true,
+        //     condition: (_, siblingData) => !siblingData.id,
+        //   },
+        // },
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          label: '制品',
+          admin: {
+            readOnly: true,
+            condition: (_, siblingData) => siblingData.image,
+          },
+        },
+      ],
+    },
   ],
   upload: {
     adminThumbnail: 'thumbnail',
@@ -19,33 +74,9 @@ export const Media: CollectionConfig = {
         name: 'thumbnail',
         width: 300,
       },
-      // {
-      //   name: 'square',
-      //   width: 500,
-      //   height: 500,
-      // },
-      // {
-      //   name: 'small',
-      //   width: 600,
-      // },
-      // {
-      //   name: 'medium',
-      //   width: 900,
-      // },
-      // {
-      //   name: 'large',
-      //   width: 1400,
-      // },
-      // {
-      //   name: 'xlarge',
-      //   width: 1920,
-      // },
-      // {
-      //   name: 'og',
-      //   width: 1200,
-      //   height: 630,
-      //   crop: 'center',
-      // },
     ],
   },
+  // versions: {
+  //   drafts: false,
+  // },
 }

@@ -14,6 +14,7 @@ import { seoPlugin } from '@payloadcms/plugin-seo'
 import { Suppliers } from './collections/Supplier'
 import { Selections } from './collections/Selection'
 import { Styles } from './collections/Style'
+import { GeneratedMediaTasks } from './collections/GenerateMediaTask'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -49,7 +50,7 @@ export default buildConfig({
       ],
     },
   },
-  collections: [Users, Media, Product, Suppliers, Styles, Selections],
+  collections: [Users, Media, Product, Suppliers, Styles, Selections, GeneratedMediaTasks],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

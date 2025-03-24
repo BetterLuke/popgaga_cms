@@ -20,22 +20,25 @@ export const Styles: CollectionConfig = {
       type: 'tabs',
       tabs: [
         {
-          name: 'raw_data',
+          label: '摄影',
+          fields: [
+            // {
+            //   type: 'upload',
+            //   name: 'mainMedia',
+            //   label: '主图',
+            //   relationTo: 'media-assets',
+            // },
+          ],
+        },
+        {
           label: '款信息',
           fields: [],
         },
         {
-          name: 'ai_generated',
-          label: 'AI 生成结果',
+          label: '商品公文维护',
           fields: [],
         },
       ],
-    },
-    {
-      name: 'style_info',
-      label: '款信息',
-      type: 'relationship',
-      relationTo: 'selections',
     },
   ],
 }
