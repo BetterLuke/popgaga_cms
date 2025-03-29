@@ -1,15 +1,6 @@
-import { CollectionConfig, FieldHook } from 'payload'
+import { CollectionConfig } from 'payload'
 import handleSelectionWorkflow from './hooks/handleSelectionWorkflow'
-import { Selection } from '@/payload-types'
-
-const getFeatureImage: FieldHook<Selection> = ({ data }) => {
-  if (data && data.media && data.media.mainMedias && data.media.mainMedias.length > 0) {
-    return data.media.mainMedias[0]
-  }
-}
-const ensureNotStoreFeatureImage: FieldHook<Selection> = ({ siblingData }) => {
-  delete siblingData.featureImage
-}
+import { ensureNotStoreFeatureImage, getFeatureImage } from './hooks/featureImageHooks'
 
 export const Selections: CollectionConfig = {
   slug: 'selections',
