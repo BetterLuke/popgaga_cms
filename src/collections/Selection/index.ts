@@ -1,6 +1,5 @@
 import { CollectionConfig } from 'payload'
-import handleSelectionWorkflow from './hooks/handleSelectionWorkflow'
-import { ensureNotStoreFeatureImage, getFeatureImage } from './hooks/featureImageHooks'
+import { ensureNotStoreFeatureImage, getFeatureImage, handleSelectionWorkflow } from './hooks'
 
 export const Selections: CollectionConfig = {
   slug: 'selections',
