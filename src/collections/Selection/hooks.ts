@@ -1,6 +1,6 @@
 import { FieldHook } from 'payload'
 import { Selection } from '@/payload-types'
-import { getDeploymentIdByName, runDeployment } from '@/utilities/prefectSdk'
+import { getDeploymentIdByName, runDeploymentById } from '@/service/prefectService'
 import { CollectionAfterChangeHook } from 'payload'
 
 const getFeatureImage: FieldHook<Selection> = ({ data }) => {
@@ -23,7 +23,7 @@ const handleSelectionWorkflow: CollectionAfterChangeHook<Selection> = async (arg
     })
     if (deploymentId) {
       console.log('deploymentId', deploymentId)
-      const response = await runDeployment(deploymentId, { id: doc.id })
+      const response = await runDeploymentById(deploymentId, { id: doc.id })
       console.log('response', response)
     }
   }

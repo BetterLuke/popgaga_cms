@@ -12,7 +12,7 @@ async function getDeploymentIdByName(parmas: { flowName: string; deploymentName:
   return result.data?.id
 }
 
-async function runDeployment(deploymentId: string, params: Record<string, any>) {
+async function runDeploymentById(deploymentId: string, params: Record<string, any>) {
   const result = await createFlowRunFromDeploymentDeploymentsIdCreateFlowRunPost({
     path: { id: deploymentId },
     body: {
@@ -23,4 +23,4 @@ async function runDeployment(deploymentId: string, params: Record<string, any>) 
   return result?.data
 }
 
-export { getDeploymentIdByName, runDeployment }
+export { getDeploymentIdByName, runDeploymentById }
