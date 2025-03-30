@@ -1,23 +1,26 @@
+import {
+  createFlowRunFromDeploymentDeploymentsIdCreateFlowRunPost,
+  readDeploymentByNameDeploymentsNameFlowNameDeploymentNameGet,
+} from './../../generated/prefect-client/sdk.gen'
+
 async function getDeploymentIdByName(parmas: { flowName: string; deploymentName: string }) {
   const { flowName, deploymentName } = parmas
-  const url = `${process.env['PREFECT_SERVER_URL'] || 'http://localhost:4200/api'}/deployments/name/${flowName}/${deploymentName}`
-  const { id } = await (await fetch(url)).json()
-  return id
+  const result = await readDeploymentByNameDeploymentsNameFlowNameDeploymentNameGet({
+    path: { flow_name: flowName, deployment_name: deploymentName },
+  })
+
+  return result.data?.id
 }
 
 async function runDeployment(deploymentId: string, params: Record<string, any>) {
-  const url = `${process.env['PREFECT_SERVER_URL'] || 'http://localhost:4200/api'}/deployments/${deploymentId}/create_flow_run`
-  const runDeploymentResponse = await (
-    await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ parameters: params }),
-    })
-  ).json()
+  const result = await createFlowRunFromDeploymentDeploymentsIdCreateFlowRunPost({
+    path: { id: deploymentId },
+    body: {
+      parameters: params,
+    },
+  })
 
-  return runDeploymentResponse
+  return result?.data
 }
 
 export { getDeploymentIdByName, runDeployment }

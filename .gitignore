@@ -43,3 +43,6 @@ next-env.d.ts
 /media
 
 /.pnpm-store
+
+
+/generated/

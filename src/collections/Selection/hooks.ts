@@ -15,16 +15,17 @@ const ensureNotStoreFeatureImage: FieldHook<Selection> = ({ siblingData }) => {
 
 const handleSelectionWorkflow: CollectionAfterChangeHook<Selection> = async (args) => {
   const { doc, operation } = args
-  // console.log('handleSelectionWorkflow')
 
   if (operation === 'create') {
     const deploymentId = await getDeploymentIdByName({
       flowName: 'populate-selection-details',
       deploymentName: 'populate_selection_details_flow_deployment',
     })
-    console.log('deploymentId', deploymentId)
-    const response = await runDeployment(deploymentId, { id: doc.id })
-    console.log('response', response)
+    if (deploymentId) {
+      console.log('deploymentId', deploymentId)
+      const response = await runDeployment(deploymentId, { id: doc.id })
+      console.log('response', response)
+    }
   }
 }
 
