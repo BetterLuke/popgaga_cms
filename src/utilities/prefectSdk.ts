@@ -1,7 +1,7 @@
 import {
   createFlowRunFromDeploymentDeploymentsIdCreateFlowRunPost,
   readDeploymentByNameDeploymentsNameFlowNameDeploymentNameGet,
-} from './../../generated/prefect-client/sdk.gen'
+} from '@prefect-client-sdk'
 
 async function getDeploymentIdByName(parmas: { flowName: string; deploymentName: string }) {
   const { flowName, deploymentName } = parmas
